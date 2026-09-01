@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123b68">
+<link rel="manifest" href="manifest.json">
+<title>Barry's Coach</title>
+<style>
+:root{--navy:#123b68;--orange:#f28c28;--bg:#f5f7fa;--card:#fff;--text:#17212b;--muted:#687684;--green:#2f8f5b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;padding-bottom:78px}
+header{background:var(--navy);color:#fff;padding:18px 16px;position:sticky;top:0;z-index:5}header h1{margin:0 0 3px;font-size:22px}header p{margin:0;opacity:.85;font-size:13px}
+main{max-width:720px;margin:auto;padding:14px}.card{background:var(--card);border-radius:16px;padding:16px;margin-bottom:14px;box-shadow:0 2px 8px #0000000b}
+h2{font-size:18px;margin:0 0 12px}h3{font-size:15px;margin:16px 0 8px}.muted{color:var(--muted)}
+.hero{border-left:5px solid var(--orange)}.big{font-size:26px;font-weight:750}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#eef3f8;border-radius:12px;padding:12px}.stat b{display:block;font-size:19px}
+button{border:0;border-radius:10px;padding:11px 14px;font-weight:700;background:var(--navy);color:#fff}button.orange{background:var(--orange)}button.secondary{background:#e9eef3;color:var(--navy)}
+.exercise{padding:13px 0;border-bottom:1px solid #e6ebef}.exercise:last-child{border-bottom:0}.exercise strong{display:block}.exercise small{display:block;color:var(--muted);margin-top:3px}.setrow{display:flex;gap:7px;margin-top:8px}.setrow input{width:90px}
+input,textarea{width:100%;padding:10px;border:1px solid #d4dce4;border-radius:9px;font:inherit;background:#fff}textarea{min-height:80px}
+.warning{background:#fff4e8;border-left:4px solid var(--orange);padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px}
+.pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#edf2f6;font-size:12px;margin:2px}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe5ea;display:flex;z-index:10}nav button{flex:1;border-radius:0;background:#fff;color:#5d6873;padding:10px 3px;font-size:12px}nav button.active{color:var(--navy);font-weight:800}
+.hidden{display:none!important}.ok{color:var(--green);font-weight:700}
+</style>
+</head>
+<body>
+<header><h1>Barry's Coach</h1><p id="dateLine"></p></header>
+<main>
+<section id="home">
+<div class="card hero"><div class="muted">TODAY</div><div class="big" id="todayTitle">Loading…</div><p id="todayDesc"></p><button class="orange" onclick="show('workout')">OPEN WORKOUT</button></div>
+<div class="card"><h2>Daily targets</h2><div class="grid">
+<div class="stat"><span class="muted">Calories</span><b>1,750–1,800</b></div>
+<div class="stat"><span class="muted">Protein</span><b>145 g</b></div>
+<div class="stat"><span class="muted">Water</span><b>~2.0 L</b></div>
+<div class="stat"><span class="muted">Steps</span><b>8,000</b></div>
+</div></div>
+<div class="card"><h2>This week's focus</h2><span class="pill">Consistency</span><span class="pill">Healthy eating</span><span class="pill">Build running gradually</span><span class="pill">Protect shoulder/elbow/back</span>
+<p class="muted">You're restarting from your current level. We are not trying to make up for missed training with punishment sessions.</p></div>
+<div class="card"><h2>12 September</h2><p><b>45 km cycle</b> — build toward it gradually and fuel the ride properly. No need to force extra endurance work while your running fitness is rebuilding.</p></div>
+</section>
+
+<section id="workout" class="hidden"><div class="card"><h2 id="workoutName"></h2>
+<div class="warning">Use pain as a guide. Keep exercises comfortable. Stop/swap anything causing sharp or worsening joint pain, or symptoms such as numbness/tingling. With your recovering shoulder, tennis elbow and back, start conservatively.</div>
+<div id="exerciseList"></div><button onclick="finishWorkout()">FINISH WORKOUT</button></div></section>
+
+<section id="nutrition" class="hidden"><div class="card"><h2>Nutrition reset</h2>
+<div class="grid"><div class="stat"><span class="muted">Calories</span><b>1,750–1,800</b></div><div class="stat"><span class="muted">Protein</span><b>145 g</b></div></div>
+<h3>For the next 7 days</h3><p>Don't try to be perfect. The immediate goal is to break the sweet-snacking/bloated cycle: protein at each main meal, plenty of whole foods, planned snacks, and sweets kept deliberate rather than automatic.</p>
+<h3>Log today</h3><label>Calories<input id="calIn" type="number" placeholder="e.g. 1780"></label><br><label>Protein (g)<input id="proIn" type="number" placeholder="e.g. 145"></label><br><button onclick="saveNutrition()">Save</button>
+</div></section>
+
+<section id="checkin" class="hidden"><div class="card"><h2>Sunday check-in</h2><p class="muted">Honesty beats perfection. This is where I analyse the week and set the next one.</p>
+<label>Weight (kg)<input id="weight" type="number" step="0.1" value="76"></label><br>
+<label>Waist (cm)<input id="waist" type="number" step="0.1"></label><br>
+<label>Average calories<input id="avgCal" type="number"></label><br>
+<label>Average protein (g)<input id="avgPro" type="number"></label><br>
+<label>Average steps<input id="avgSteps" type="number"></label><br>
+<label>Average sleep (hours)<input id="sleep" type="number" step="0.1"></label><br>
+<label>Biggest win<textarea id="win"></textarea></label><br>
+<label>Biggest problem<textarea id="problem"></textarea></label><br>
+<button class="orange" onclick="saveCheckin()">SAVE CHECK-IN</button></div>
+<div class="card"><h2>Latest check-in</h2><div id="latestCheckin" class="muted">None yet.</div></div></section>
+
+<section id="plan" class="hidden"><div class="card"><h2>Master plan</h2>
+<h3>Goal</h3><p>Current 76 kg. Long-term target ~70 kg and below 15% body fat while maintaining/building muscle.</p>
+<h3>Weekly structure</h3><p><b>Mon:</b> Home strength<br><b>Tue:</b> Football<br><b>Wed:</b> Full work-gym strength<br><b>Thu:</b> Recovery/mobility<br><b>Fri:</b> Home strength<br><b>Sat/Sun:</b> running/cycling/recovery according to fatigue and the current programme.</p>
+<h3>Running</h3><p>Current estimated limit ~2 km. We rebuild gradually; the old 5 km goal is not the immediate target.</p>
+<h3>Nutrition</h3><p><b>1,750–1,800 kcal/day</b> baseline and <b>~145 g protein/day</b>. Hard/long cycling days get additional planned fuel.</p>
+<h3>Home equipment</h3><p>Dumbbells, 6/10/12 kg kettlebells, resistance bands, TRX, skipping rope, yoga blocks and ankle weights.</p>
+</div></section>
+</main>
+<nav><button id="nHome" onclick="show('home')">🏠<br>Today</button><button id="nWorkout" onclick="show('workout')">🏋️<br>Workout</button><button id="nNutrition" onclick="show('nutrition')">🍽️<br>Food</button><button id="nCheckin" onclick="show('checkin')">📊<br>Check-in</button><button id="nPlan" onclick="show('plan')">📋<br>Plan</button></nav>
+<script>
+const plans={
+Mon:{title:"Home Strength A",desc:"~30 min • controlled full-body rebuild",ex:[
+["Goblet squat","3 × 8–10","Comfortable depth; slow and controlled."],
+["DB floor press — neutral grip","3 × 8–10","Pain-free range only; conservative load."],
+["TRX row — neutral grip","3 × 8–12","Smooth pull; don't provoke elbow."],
+["KB Romanian deadlift","2 × 8–10","Brace hard; stop if back feels worse."],
+["Dead bug","2 × 6/side","Slow, controlled reps."]
+]},
+Wed:{title:"Full Work Gym B",desc:"~30–35 min • machines/cables available",ex:[
+["Leg press","3 × 8–10","Controlled; leave 2–3 reps in reserve."],
+["Chest-supported row","3 × 8–12","Neutral grip if comfortable."],
+["Machine chest press","2 × 8–10","Comfortable shoulder position; no grinding."],
+["Seated/lying leg curl","2 × 10–12","Controlled."],
+["Cable Pallof press","2 × 8/side","Brace; resist rotation."]
+]},
+Fri:{title:"Home Strength C",desc:"~30 min • full-body rebuild",ex:[
+["Reverse lunge / supported split squat","3 × 8/leg","Use support if needed."],
+["KB deadlift from elevated start","3 × 8","Only if back remains comfortable."],
+["Band or TRX row","3 × 10–12","Comfortable elbow path."],
+["Incline push-up","2 × 8–12","Hands elevated; pain-free shoulder range."],
+["Side plank","2 × 20–30 sec/side","Controlled."]
+]}};
+function day(){return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()]}
+function current(){return plans[day()]}
+function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById({home:'nHome',workout:'nWorkout',nutrition:'nNutrition',checkin:'nCheckin',plan:'nPlan'}[id]).classList.add('active');if(id==='workout')renderWorkout();if(id==='checkin')renderCheckin()}
+function renderWorkout(){const p=current();document.getElementById('workoutName').textContent=p?p.title:'Recovery / Mobility';document.getElementById('exerciseList').innerHTML=p?p.ex.map((e,i)=>`<div class="exercise"><strong>${i+1}. ${e[0]}</strong><small>${e[1]} • ${e[2]}</small><div class="setrow"><input id="actual${i}" placeholder="actual"><button class="secondary" onclick="this.textContent='✓ Done'">Done</button></div></div>`).join(''):'<p>Today is not a strength day. Walk, do comfortable mobility, or rest. Tuesday football is your main high-intensity session.</p>'}
+function finishWorkout(){let a=JSON.parse(localStorage.getItem('workouts')||'[]');a.push({date:new Date().toISOString(),day:day(),plan:current()?.title||'Recovery'});localStorage.setItem('workouts',JSON.stringify(a));alert('Workout recorded.')}
+function saveNutrition(){let a=JSON.parse(localStorage.getItem('nutrition')||'[]');a.push({date:new Date().toISOString(),cal:+calIn.value||null,pro:+proIn.value||null});localStorage.setItem('nutrition',JSON.stringify(a));alert('Nutrition saved.')}
+function saveCheckin(){let x={date:new Date().toISOString(),weight:+weight.value||null,waist:+waist.value||null,cal:+avgCal.value||null,pro:+avgPro.value||null,steps:+avgSteps.value||null,sleep:+sleep.value||null,win:win.value,problem:problem.value};localStorage.setItem('checkin',JSON.stringify(x));renderCheckin();alert('Check-in saved.')}
+function renderCheckin(){let x=JSON.parse(localStorage.getItem('checkin')||'null');document.getElementById('latestCheckin').innerHTML=x?`<b>${new Date(x.date).toLocaleDateString()}</b><br>Weight: ${x.weight||'—'} kg · Waist: ${x.waist||'—'} cm<br>Calories: ${x.cal||'—'} · Protein: ${x.pro||'—'} g<br>Steps: ${x.steps||'—'} · Sleep: ${x.sleep||'—'} h<br><br><b>Win:</b> ${x.win||'—'}<br><b>Problem:</b> ${x.problem||'—'}`:'None yet.'}
+function init(){let n=new Date();document.getElementById('dateLine').textContent=n.toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long'});let p=current();document.getElementById('todayTitle').textContent=p?p.title:'Recovery / Mobility';document.getElementById('todayDesc').textContent=p?p.desc:'Walk, mobility or rest.';show('home')}
+init();if('serviceWorker' in navigator)navigator.serviceWorker.register('service-worker.js');
+</script>
+</body></html>
