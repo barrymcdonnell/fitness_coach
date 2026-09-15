@@ -19,7 +19,7 @@ button{border:0;border-radius:10px;padding:11px 14px;font-weight:700;background:
 input,textarea{width:100%;padding:10px;border:1px solid #d4dce4;border-radius:9px;font:inherit;background:#fff}textarea{min-height:80px}
 .warning{background:#fff4e8;border-left:4px solid var(--orange);padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px}
 .pill{display:inline-block;padding:5px 9px;border-radius:20px;background:#edf2f6;font-size:12px;margin:2px}
-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe5ea;display:flex;z-index:10}nav button{flex:1;border-radius:0;background:#fff;color:#5d6873;padding:10px 3px;font-size:12px}nav button.active{color:var(--navy);font-weight:800}
+nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #dfe5ea;display:flex;z-index:10;overflow-x:auto}nav button{flex:1 0 16.66%;min-width:68px;border-radius:0;background:#fff;color:#5d6873;padding:10px 3px;font-size:11px}nav button.active{color:var(--navy);font-weight:800}
 .hidden{display:none!important}.ok{color:var(--green);font-weight:700}
 </style>
 </head>
@@ -34,14 +34,16 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 <div class="stat"><span class="muted">Water</span><b>~2.0 L</b></div>
 <div class="stat"><span class="muted">Steps</span><b>8,000</b></div>
 </div></div>
-<div class="card"><h2>This week's focus</h2><span class="pill">Consistency</span><span class="pill">Healthy eating</span><span class="pill">Build running gradually</span><span class="pill">Protect shoulder/elbow/back</span>
+<div class="card"><h2>This week's focus</h2><span class="pill">Consistency</span><span class="pill">Healthy eating</span><span class="pill">Build running gradually</span><span class="pill">Protect shoulder/elbow/back</span><span class="pill">Build glutes / protect knee</span>
 <p class="muted">You're restarting from your current level. We are not trying to make up for missed training with punishment sessions.</p></div>
-<div class="card"><h2>12 September</h2><p><b>45 km cycle</b> — build toward it gradually and fuel the ride properly. No need to force extra endurance work while your running fitness is rebuilding.</p></div>
+<div class="card"><h2>Knee watch</h2><p>You reported soreness around the outside of the right kneecap after ~15 km on the 45 km cycle. We are adding controlled glute work, especially glute-med/hip-stability work. This is not a diagnosis: if the pain persists, worsens, causes swelling/locking/giving way, or limits normal activity, get it assessed by a physio/clinician.</p><p class="muted">On cycling days, also note whether saddle height, cleat/foot position, cadence or bike setup seems to change the symptoms.</p></div>
 </section>
 
 <section id="workout" class="hidden"><div class="card"><h2 id="workoutName"></h2>
-<div class="warning">Use pain as a guide. Keep exercises comfortable. Stop/swap anything causing sharp or worsening joint pain, or symptoms such as numbness/tingling. With your recovering shoulder, tennis elbow and back, start conservatively.</div>
+<div class="warning"><b>Catch-up friendly:</b> This workout can be done on any day. If you missed a planned session, use All Workouts to open it. <br><br>Use pain as a guide. Keep exercises comfortable. Stop/swap anything causing sharp or worsening joint pain, or symptoms such as numbness/tingling. With your recovering shoulder, tennis elbow and back, start conservatively.</div>
 <div id="exerciseList"></div><button onclick="finishWorkout()">FINISH WORKOUT</button></div></section>
+
+<section id="allWorkouts" class="hidden"><div class="card"><h2>All workouts</h2><p class="muted">All three strength workouts are always available here. Use this when life gets in the way of the planned day and you want to catch up later.</p><div id="allWorkoutList"></div></div></section>
 
 <section id="nutrition" class="hidden"><div class="card"><h2>Nutrition reset</h2>
 <div class="grid"><div class="stat"><span class="muted">Calories</span><b>1,750–1,800</b></div><div class="stat"><span class="muted">Protein</span><b>145 g</b></div></div>
@@ -64,12 +66,13 @@ nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid 
 <section id="plan" class="hidden"><div class="card"><h2>Master plan</h2>
 <h3>Goal</h3><p>Current 76 kg. Long-term target ~70 kg and below 15% body fat while maintaining/building muscle.</p>
 <h3>Weekly structure</h3><p><b>Mon:</b> Home strength<br><b>Tue:</b> Football<br><b>Wed:</b> Full work-gym strength<br><b>Thu:</b> Recovery/mobility<br><b>Fri:</b> Home strength<br><b>Sat/Sun:</b> running/cycling/recovery according to fatigue and the current programme.</p>
+<h3>Glute / knee work</h3><p>Glute work is now built into all three strength sessions: glute bridges Monday, hip abduction Wednesday and banded lateral walks Friday. Keep it controlled rather than chasing fatigue.</p>
 <h3>Running</h3><p>Current estimated limit ~2 km. We rebuild gradually; the old 5 km goal is not the immediate target.</p>
 <h3>Nutrition</h3><p><b>1,750–1,800 kcal/day</b> baseline and <b>~145 g protein/day</b>. Hard/long cycling days get additional planned fuel.</p>
 <h3>Home equipment</h3><p>Dumbbells, 6/10/12 kg kettlebells, resistance bands, TRX, skipping rope, yoga blocks and ankle weights.</p>
 </div></section>
 </main>
-<nav><button id="nHome" onclick="show('home')">🏠<br>Today</button><button id="nWorkout" onclick="show('workout')">🏋️<br>Workout</button><button id="nNutrition" onclick="show('nutrition')">🍽️<br>Food</button><button id="nCheckin" onclick="show('checkin')">📊<br>Check-in</button><button id="nPlan" onclick="show('plan')">📋<br>Plan</button></nav>
+<nav><button id="nHome" onclick="show('home')">🏠<br>Today</button><button id="nWorkout" onclick="show('workout')">🏋️<br>Today Workout</button><button id="nAllWorkouts" onclick="show('allWorkouts')">📚<br>All Workouts</button><button id="nNutrition" onclick="show('nutrition')">🍽️<br>Food</button><button id="nCheckin" onclick="show('checkin')">📊<br>Check-in</button><button id="nPlan" onclick="show('plan')">📋<br>Plan</button></nav>
 <script>
 const plans={
 Mon:{title:"Home Strength A",desc:"~30 min • controlled full-body rebuild",ex:[
@@ -77,6 +80,7 @@ Mon:{title:"Home Strength A",desc:"~30 min • controlled full-body rebuild",ex:
 ["DB floor press — neutral grip","3 × 8–10","Pain-free range only; conservative load."],
 ["TRX row — neutral grip","3 × 8–12","Smooth pull; don't provoke elbow."],
 ["KB Romanian deadlift","2 × 8–10","Brace hard; stop if back feels worse."],
+["Glute bridge","2 × 12–15","Pause and squeeze; keep ribs down."],
 ["Dead bug","2 × 6/side","Slow, controlled reps."]
 ]},
 Wed:{title:"Full Work Gym B",desc:"~30–35 min • machines/cables available",ex:[
@@ -84,20 +88,24 @@ Wed:{title:"Full Work Gym B",desc:"~30–35 min • machines/cables available",e
 ["Chest-supported row","3 × 8–12","Neutral grip if comfortable."],
 ["Machine chest press","2 × 8–10","Comfortable shoulder position; no grinding."],
 ["Seated/lying leg curl","2 × 10–12","Controlled."],
-["Cable Pallof press","2 × 8/side","Brace; resist rotation."]
+["Cable Pallof press","2 × 8/side","Brace; resist rotation."],
+["Hip abduction machine","2 × 12–15/side","Light/moderate load; controlled, no hip hiking."]
 ]},
 Fri:{title:"Home Strength C",desc:"~30 min • full-body rebuild",ex:[
 ["Reverse lunge / supported split squat","3 × 8/leg","Use support if needed."],
 ["KB deadlift from elevated start","3 × 8","Only if back remains comfortable."],
 ["Band or TRX row","3 × 10–12","Comfortable elbow path."],
+["Banded lateral walk","2 × 10/side","Small controlled steps; knees track over toes."],
 ["Incline push-up","2 × 8–12","Hands elevated; pain-free shoulder range."],
 ["Side plank","2 × 20–30 sec/side","Controlled."]
 ]}};
 function day(){return ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][new Date().getDay()]}
 function current(){return plans[day()]}
-function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));document.getElementById({home:'nHome',workout:'nWorkout',nutrition:'nNutrition',checkin:'nCheckin',plan:'nPlan'}[id]).classList.add('active');if(id==='workout')renderWorkout();if(id==='checkin')renderCheckin()}
-function renderWorkout(){const p=current();document.getElementById('workoutName').textContent=p?p.title:'Recovery / Mobility';document.getElementById('exerciseList').innerHTML=p?p.ex.map((e,i)=>`<div class="exercise"><strong>${i+1}. ${e[0]}</strong><small>${e[1]} • ${e[2]}</small><div class="setrow"><input id="actual${i}" placeholder="actual"><button class="secondary" onclick="this.textContent='✓ Done'">Done</button></div></div>`).join(''):'<p>Today is not a strength day. Walk, do comfortable mobility, or rest. Tuesday football is your main high-intensity session.</p>'}
-function finishWorkout(){let a=JSON.parse(localStorage.getItem('workouts')||'[]');a.push({date:new Date().toISOString(),day:day(),plan:current()?.title||'Recovery'});localStorage.setItem('workouts',JSON.stringify(a));alert('Workout recorded.')}
+function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));const navId={home:'nHome',workout:'nWorkout',allWorkouts:'nAllWorkouts',nutrition:'nNutrition',checkin:'nCheckin',plan:'nPlan'}[id];if(navId)document.getElementById(navId).classList.add('active');if(id==='workout')renderWorkout(current(),false);if(id==='allWorkouts')renderAllWorkouts();if(id==='checkin')renderCheckin()}
+function renderWorkout(p,fromAll=false){document.getElementById('workoutName').textContent=p?p.title:'Recovery / Mobility';document.getElementById('exerciseList').innerHTML=p?p.ex.map((e,i)=>`<div class="exercise"><strong>${i+1}. ${e[0]}</strong><small>${e[1]} • ${e[2]}</small><div class="setrow"><input id="actual${i}" placeholder="actual"><button class="secondary" onclick="this.textContent='✓ Done'">Done</button></div></div>`).join(''):'<p>Today is not a strength day. Walk, do comfortable mobility, or rest. Tuesday football is your main high-intensity session.</p>';window.selectedPlan=p||null}
+function openWorkout(key){renderWorkout(plans[key],true);show('workout')}
+function renderAllWorkouts(){document.getElementById('allWorkoutList').innerHTML=Object.entries(plans).map(([key,p])=>`<div class="card" style="margin:10px 0;background:#f8fafc"><h3 style="margin-top:0">${p.title}</h3><p class="muted">${p.desc}</p><p><b>${p.ex.length} exercises</b> · ${p.ex.map(e=>e[0]).join(' · ')}</p><button class="orange" onclick="openWorkout('${key}')">OPEN WORKOUT</button></div>`).join('')}
+function finishWorkout(){let p=window.selectedPlan||current();let a=JSON.parse(localStorage.getItem('workouts')||'[]');a.push({date:new Date().toISOString(),day:day(),plan:p?.title||'Recovery',plannedDay:Object.entries(plans).find(([k,v])=>v===p)?.[0]||day(),catchup:p&&p!==current()});localStorage.setItem('workouts',JSON.stringify(a));alert(p&&p!==current()?'Catch-up workout recorded.':'Workout recorded.')}
 function saveNutrition(){let a=JSON.parse(localStorage.getItem('nutrition')||'[]');a.push({date:new Date().toISOString(),cal:+calIn.value||null,pro:+proIn.value||null});localStorage.setItem('nutrition',JSON.stringify(a));alert('Nutrition saved.')}
 function saveCheckin(){let x={date:new Date().toISOString(),weight:+weight.value||null,waist:+waist.value||null,cal:+avgCal.value||null,pro:+avgPro.value||null,steps:+avgSteps.value||null,sleep:+sleep.value||null,win:win.value,problem:problem.value};localStorage.setItem('checkin',JSON.stringify(x));renderCheckin();alert('Check-in saved.')}
 function renderCheckin(){let x=JSON.parse(localStorage.getItem('checkin')||'null');document.getElementById('latestCheckin').innerHTML=x?`<b>${new Date(x.date).toLocaleDateString()}</b><br>Weight: ${x.weight||'—'} kg · Waist: ${x.waist||'—'} cm<br>Calories: ${x.cal||'—'} · Protein: ${x.pro||'—'} g<br>Steps: ${x.steps||'—'} · Sleep: ${x.sleep||'—'} h<br><br><b>Win:</b> ${x.win||'—'}<br><b>Problem:</b> ${x.problem||'—'}`:'None yet.'}

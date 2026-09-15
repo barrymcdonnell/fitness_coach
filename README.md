@@ -1,4 +1,13 @@
-Barry's Coach v0.1
-This is the quick-start mobile PWA. It includes today's dashboard, Monday/Wednesday/Friday workouts, nutrition targets, weekly check-in, local logging and PWA files.
-It intentionally does not yet import Garmin or MyFitnessPal. Once you export sample data, we can add CSV import and automatic weekly summaries.
-For Android installation, host the folder on HTTPS (e.g. GitHub Pages). Opening from content:// will not provide full PWA install behaviour.
+# Barry's Coach v0.3
+
+Mobile-first personal fitness coaching PWA.
+
+## v0.3 changes
+- Added an **All Workouts** tab so Home A, Work Gym B and Home C are always visible.
+- Any workout can be opened on any day, making missed sessions easy to catch up.
+- The Today/Workout tab still automatically shows the workout scheduled for the current day.
+- Finishing a workout records whether it was a catch-up session and which workout was planned.
+- Existing glute/knee-focused additions from v0.2 remain.
+
+## Hosting
+Upload the files to GitHub Pages (HTTPS) for reliable PWA installation on Android.
